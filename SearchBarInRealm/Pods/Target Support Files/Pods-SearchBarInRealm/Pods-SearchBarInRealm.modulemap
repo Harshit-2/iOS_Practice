@@ -1,0 +1,6 @@
+framework module Pods_SearchBarInRealm {
+  umbrella header "Pods-SearchBarInRealm-umbrella.h"
+
+  export *
+  module * { export * }
+}
