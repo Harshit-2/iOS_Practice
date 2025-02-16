@@ -9,6 +9,8 @@ import UIKit
 import UserNotifications
 
 class ViewController: UIViewController {
+    
+    let notificationCenter = UNUserNotificationCenter.current()
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -17,7 +19,7 @@ class ViewController: UIViewController {
     }
     
     func checkForPermission() {
-        let notificationCenter = UNUserNotificationCenter.current()
+        
         notificationCenter.getNotificationSettings { settings in
             switch settings.authorizationStatus {
             case .authorized:
@@ -27,7 +29,7 @@ class ViewController: UIViewController {
                 return
                 
             case .notDetermined:
-                notificationCenter.requestAuthorization(options: [.alert, .sound]) { didAllow, error in
+                self.notificationCenter.requestAuthorization(options: [.alert, .sound]) { didAllow, error in
                     if didAllow {
                         self.dispatchNotification()
                     }
@@ -46,8 +48,6 @@ class ViewController: UIViewController {
         let minute = 25
         let isDaily = false
         
-        let notificatioinCenter = UNUserNotificationCenter.current()
-        
         let content = UNMutableNotificationContent()
         content.title = title
         content.body = body
@@ -60,8 +60,8 @@ class ViewController: UIViewController {
         let trigger = UNCalendarNotificationTrigger(dateMatching: dateComponent, repeats: isDaily)
         let request = UNNotificationRequest(identifier: identifier, content: content, trigger: trigger)
         
-        notificatioinCenter.removePendingNotificationRequests(withIdentifiers: [identifier])
-        notificatioinCenter.add(request)
+        notificationCenter.removePendingNotificationRequests(withIdentifiers: [identifier])
+        notificationCenter.add(request)
     }
 
 
