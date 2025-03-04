@@ -48,7 +48,7 @@ class ViewController: UIViewController {
             for item in itemArray {
                 let title = item.title
                 let status = item.done
-                print("• \(title) [\(status)]")
+                print("• \(title!) [\(status)]")
             }
             print("-------------------")
             
